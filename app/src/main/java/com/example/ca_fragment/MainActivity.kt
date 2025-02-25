@@ -10,25 +10,33 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        //val barFragment = BarFragment()
-        //val lineFragment = LineFragment()
+        val barFragment = BarFragment()
+        val lineFragment = LineFragment()
 
-        //Load LineFragment by default
-        loadFragment(LineFragment())
-
-        buttonLine.setOnClickListener {
-            loadFragment(LineFragment())
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, lineFragment)
+            commit()
         }
 
-        buttonBar.setOnClickListener {
-            loadFragment(BarFragment())
+        findViewById<Button>(R.id.buttonBar).setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentContainer, barFragment)
+                commit()
+            }
+        }
+
+        findViewById<Button>(R.id.buttonLine).setOnClickListener {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fragmentContainer, lineFragment)
+                commit()
+            }
         }
     }
 
