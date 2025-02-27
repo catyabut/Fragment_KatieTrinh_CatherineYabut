@@ -32,15 +32,39 @@ class LineFragment : Fragment() {
         val plot = binding.plot
 
         // Check if plot is not null before using it
-        if (plot != null) {
-            val series = SimpleXYSeries(
-                listOf<Number>(1, 2, 3, 4),
-                listOf<Number>(4.3, 2.5, 3.5, 4.5),
-                "Line Series"
-            )
 
-            val seriesFormat = LineAndPointFormatter(Color.RED, Color.BLUE, null, null)
-            plot.addSeries(series, seriesFormat)
+        if (plot != null) {
+            // Line A (original)
+            val seriesA = SimpleXYSeries(
+                listOf<Number>(1, 2, 3, 4), // X-axis
+                listOf<Number>(4.3, 2.5, 3.5, 4.5), // Y-axis
+                "A"
+            )
+            val formatA = LineAndPointFormatter(Color.RED, Color.BLUE, null, null)
+
+            // Line B
+            val seriesB = SimpleXYSeries(
+                listOf<Number>(1, 2, 3, 4),
+                listOf<Number>(2.4, 4.4, 1.8, 2.8),
+                "B"
+            )
+            val formatB = LineAndPointFormatter(Color.GREEN, Color.YELLOW, null, null)
+
+            // Line C
+            val seriesC = SimpleXYSeries(
+                listOf<Number>(1, 2, 3, 4),
+                listOf<Number>(2, 2, 3, 5),
+                "C"
+            )
+            val formatC = LineAndPointFormatter(Color.MAGENTA, Color.CYAN, null, null)
+
+            // Add all series to the plot
+            plot.addSeries(seriesA, formatA)
+            plot.addSeries(seriesB, formatB)
+            plot.addSeries(seriesC, formatC)
+
+            // Redraw plot
+            plot.redraw()
         } else {
             Log.e("LineFragment", "plot is null!")
         }
