@@ -5,55 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.androidplot.xy.BarFormatter
+import com.androidplot.xy.SimpleXYSeries
+import com.androidplot.xy.XYPlot
+import com.androidplot.xy.XYSeries
+import com.androidplot.xy.XYGraphWidget
+import com.androidplot.xy.BoundaryMode
+import java.util.Arrays
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [BarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class BarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bar, container, false)
-    }
+        val view = inflater.inflate(R.layout.bar_fragment, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Find XYPlot in the layout
+        val plot = view.findViewById<XYPlot>(R.id.plot)
+
+        // Create data series
+        val series = SimpleXYSeries(
+            Arrays.asList(1, 2, 3, 4),
+            Arrays.asList(4.3, 2.5, 3.5, 4.5),
+            "Bar Data"
+        )
+
+        // Format and add series
+        val formatter = BarFormatter()
+        plot.addSeries(series, formatter)
+
+        return view
     }
 }
