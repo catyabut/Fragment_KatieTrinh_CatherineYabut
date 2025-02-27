@@ -1,6 +1,8 @@
 package com.example.ca_fragment
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,31 +10,44 @@ import android.view.ViewGroup
 import com.androidplot.xy.LineAndPointFormatter
 import com.androidplot.xy.SimpleXYSeries
 import com.androidplot.xy.XYPlot
-import com.androidplot.xy.XYSeries
+import com.example.ca_fragment.databinding.LineFragmentBinding
 import java.util.Arrays
 
 class LineFragment : Fragment() {
+    private var _binding: LineFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_line, container, false)
+    ): View {
+        _binding = LineFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Find the XYPlot in the layout
-        val plot = view.findViewById<XYPlot>(R.id.plot)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        // Create data series
-        val series = SimpleXYSeries(
-            Arrays.asList(1, 2, 3, 4),
-            Arrays.asList(2.4, 4.4, 1.8, 2.8),
-            "Line Data"
-        )
+        // Now safely access binding.plot after view is created
+        val plot = binding.plot
 
-        // Format and add series
-        val formatter = LineAndPointFormatter()
-        plot.addSeries(series, formatter)
+        // Check if plot is not null before using it
+        if (plot != null) {
+            val series = SimpleXYSeries(
+                listOf<Number>(1, 2, 3, 4),
+                listOf<Number>(4.3, 2.5, 3.5, 4.5),
+                "Line Series"
+            )
 
-        return view
+            val seriesFormat = LineAndPointFormatter(Color.RED, Color.BLUE, null, null)
+            plot.addSeries(series, seriesFormat)
+        } else {
+            Log.e("LineFragment", "plot is null!")
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Avoid memory leaks
     }
 }
