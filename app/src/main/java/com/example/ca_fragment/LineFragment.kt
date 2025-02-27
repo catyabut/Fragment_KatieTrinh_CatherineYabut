@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.androidplot.xy.BoundaryMode
 import com.androidplot.xy.LineAndPointFormatter
 import com.androidplot.xy.SimpleXYSeries
+import com.androidplot.xy.StepMode
 import com.androidplot.xy.XYPlot
 import com.example.ca_fragment.databinding.LineFragmentBinding
 import java.util.Arrays
@@ -62,6 +64,14 @@ class LineFragment : Fragment() {
             plot.addSeries(seriesA, formatA)
             plot.addSeries(seriesB, formatB)
             plot.addSeries(seriesC, formatC)
+
+            // Configure Y-axis range and steps
+            plot.setRangeBoundaries(0, 10, BoundaryMode.FIXED) // Y-axis limits
+            plot.setRangeStep(StepMode.INCREMENT_BY_VAL, 2.0)  // Steps of 2 (0,2,4,...14)
+
+
+            plot.setDomainBoundaries(0, 4, BoundaryMode.FIXED) // Set domain (X-axis) from 0 to 4
+            plot.setDomainStep(StepMode.INCREMENT_BY_VAL, 1.0) // X-axis step
 
             // Redraw plot
             plot.redraw()
