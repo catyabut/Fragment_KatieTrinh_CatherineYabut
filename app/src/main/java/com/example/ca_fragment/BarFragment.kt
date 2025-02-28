@@ -27,7 +27,7 @@ class BarFragment : Fragment() {
 
         if (::plot.isInitialized) {
             val xValues = listOf(1, 2, 3, 4)
-            val xOffset = 0.2  // Small offset for side-by-side effect
+            val xOffset = 0.15  // Small offset for side-by-side effect
 
             // A Bars (Left)
             val seriesA: XYSeries = SimpleXYSeries(
@@ -62,6 +62,13 @@ class BarFragment : Fragment() {
             plot.getRenderer(BarRenderer::class.java)?.setBarGroupWidth(
                 BarRenderer.BarGroupWidthMode.FIXED_WIDTH, 60f
             )
+
+            // Set plot configurations
+            plot.setDomainStep(StepMode.INCREMENT_BY_VAL, 1.0)  // Space out x-axis
+            plot.setRangeBoundaries(0, 6, BoundaryMode.FIXED)   // Y-axis from 0 to 6
+
+            // Adjust domain boundaries to give more space to the bars and start from 1
+            plot.setDomainBoundaries(0f, 5f, BoundaryMode.FIXED)  // x-axis from 1 to 4 (no 0)
 
             // Redraw to apply changes
             plot.redraw()
