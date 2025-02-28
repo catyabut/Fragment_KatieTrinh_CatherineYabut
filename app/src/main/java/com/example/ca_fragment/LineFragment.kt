@@ -42,7 +42,7 @@ class LineFragment : Fragment() {
                 listOf<Number>(4.3, 2.5, 3.5, 4.5), // Y-axis
                 "A"
             )
-            val formatA = LineAndPointFormatter(Color.RED, Color.BLUE, null, null)
+            val formatA = LineAndPointFormatter(Color.RED, Color.RED, null, null)
 
             // Line B
             val seriesB = SimpleXYSeries(
@@ -50,7 +50,7 @@ class LineFragment : Fragment() {
                 listOf<Number>(2.4, 4.4, 1.8, 2.8),
                 "B"
             )
-            val formatB = LineAndPointFormatter(Color.GREEN, Color.YELLOW, null, null)
+            val formatB = LineAndPointFormatter(Color.GREEN, Color.GREEN, null, null)
 
             // Line C
             val seriesC = SimpleXYSeries(
@@ -58,7 +58,7 @@ class LineFragment : Fragment() {
                 listOf<Number>(2, 2, 3, 5),
                 "C"
             )
-            val formatC = LineAndPointFormatter(Color.MAGENTA, Color.CYAN, null, null)
+            val formatC = LineAndPointFormatter(Color.MAGENTA, Color.MAGENTA, null, null)
 
             // Add all series to the plot
             plot.addSeries(seriesA, formatA)
@@ -69,7 +69,7 @@ class LineFragment : Fragment() {
             plot.setRangeBoundaries(0, 10, BoundaryMode.FIXED) // Y-axis limits
             plot.setRangeStep(StepMode.INCREMENT_BY_VAL, 2.0)  // Steps of 2 (0,2,4,...14)
 
-
+            //Configure X-axis range and steps
             plot.setDomainBoundaries(0, 4, BoundaryMode.FIXED) // Set domain (X-axis) from 0 to 4
             plot.setDomainStep(StepMode.INCREMENT_BY_VAL, 1.0) // X-axis step
 
