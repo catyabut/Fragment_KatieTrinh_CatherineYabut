@@ -3,11 +3,13 @@ package com.example.ca_fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.androidplot.util.PixelUtils
 import com.androidplot.xy.*
+
 
 class BarFragment : Fragment() {
 
@@ -24,6 +26,8 @@ class BarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val renderer = plot.getRenderer(BarRenderer::class.java)
 
         if (::plot.isInitialized) {
             val xValues = listOf(1, 2, 3, 4)
@@ -58,9 +62,13 @@ class BarFragment : Fragment() {
             plot.addSeries(seriesB, formatB)
             plot.addSeries(seriesC, formatC)
 
-            // Adjust bar width to fit properly
-            plot.getRenderer(BarRenderer::class.java)?.setBarGroupWidth(
-                BarRenderer.BarGroupWidthMode.FIXED_WIDTH, 60f
+            // Set bar orientation to SIDE_BY_SIDE (This prevents stacking)
+            renderer?.setBarOrientation(BarRenderer.BarOrientation.SIDE_BY_SIDE)
+
+            // Set the bar group width with fixed gap
+            renderer?.setBarGroupWidth(
+                BarRenderer.BarGroupWidthMode.FIXED_GAP,
+                PixelUtils.dpToPix(5.0F)
             )
 
             // Redraw to apply changes
@@ -69,4 +77,5 @@ class BarFragment : Fragment() {
             Log.e("BarFragment", "plot is not initialized!")
         }
     }
+
 }
