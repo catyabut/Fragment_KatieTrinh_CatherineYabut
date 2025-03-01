@@ -73,6 +73,7 @@ class LineFragment : Fragment() {
             plot.setDomainBoundaries(0, 4, BoundaryMode.FIXED) // Set domain (X-axis) from 0 to 4
             plot.setDomainStep(StepMode.INCREMENT_BY_VAL, 1.0) // X-axis step
 
+            
             // Redraw plot
             plot.redraw()
         } else {
